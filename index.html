@@ -1,0 +1,73 @@
+<head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <script src="js/url-search-params.js"></script>
+    <script src="js/pypip-dot-in-to-shields-dot-io.js"></script>
+</head>
+
+<body>
+    <p>Some time ago, the original pypip.in service shut down. This broke the badges for thousands of GitHub repos. The domain
+        has been purchased and configured to redirect requests to the still-functioning
+        <a href="https://shields.io/">shields.io</a> service.
+    </p>
+    <p>Since this is costing money to operate, we'd appreciate it if you could change your URLs to point at shields.io directly.</p>
+    <p>If you enter the pypip.in URL you are using into the box below, it will generate the corresponding shields.io URL you
+        should use:</p>
+
+    <div>
+        <form>
+            <div class="translation-form">
+                <p class="prompt">pypip.in badge URL:</p>
+                <input type="text" name="pypip" id="pypip_url">
+                <input type="button" value="Translate" onclick="go()">
+                <p class="prompt">Equivalent shields.io badge URL:</p>
+                <input type="text" id="shieldsio_url">
+                <button type='button' id="copy_url_button" style="vertical-align: top;" onclick="copy()">
+                    <svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 14 16" width="14">
+                        <path fill-rule="evenodd" d="M2 13h4v1H2v-1zm5-6H2v1h5V7zm2 3V8l-3 3 3 3v-2h5v-2H9zM4.5 9H2v1h2.5V9zM2 12h2.5v-1H2v1zm9 1h1v2c-.02.28-.11.52-.3.7-.19.18-.42.28-.7.3H1c-.55 0-1-.45-1-1V4c0-.55.45-1 1-1h3c0-1.11.89-2 2-2 1.11 0 2 .89 2 2h3c.55 0 1 .45 1 1v5h-1V6H1v9h10v-2zM2 5h8c0-.55-.45-1-1-1H8c-.55 0-1-.45-1-1s-.45-1-1-1-1 .45-1 1-.45 1-1 1H3c-.55 0-1 .45-1 1z"></path>
+                    </svg>
+                </button>
+                <div id="download_badge_warning" class="warning" hidden=true>
+                    <p>Unfortunately,
+                        <a href="https://mail.python.org/pipermail/distutils-sig/2013-May/020855.html">PyPI has removed download statistics from their API</a>, which means that even the shields.io "download
+                        count" badges are broken (they display "no longer available". See
+                        <a href="https://github.com/badges/shields/issues/716">this</a> and the
+                        <a href="#preview">preview below</a>).</p>
+                </div>
+                <div>
+                    <p id="preview" class="prompt" hidden="true">Preview:</p>
+                    <a href="" id="resulting_badge_link">
+                        <img src="" hidden="true" id="resulting_badge" alt="fetching preview...">
+                    </a>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+    <p>
+        <b>Disclaimer:</b> This site is in no way affiliated with shields.io, nor is it meant to promote them over other badge
+        providers. If you're interested, you can look at some of the other badge providers and choose the best one for your
+        needs:
+    </p>
+
+    <ul>
+        <li>
+            <a href="https://github.com/SavandBros/badge">SavandBros/badge</a>
+        </li>
+        <li>
+            <a href="https://github.com/autophagy/scieldas">Autophagy/scieldas</a>
+        </li>
+        <li>
+            <a href="https://shields.io/">shields.io</a>
+        </li>
+    </ul>
+
+    <a href="mailto:repobot@movermeyer.com">Know of other badge providers? Questions? Feedback?</a>
+
+    <p> Created by
+        <a href="http://eldondev.com">eldondev</a> and
+        <a href="http://movermeyer.com">movermeyer</a>
+    </p>
+</body>
