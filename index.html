@@ -7,8 +7,9 @@
 </head>
 
 <body>
-    <p>Some time ago, the original pypip.in service shut down. This broke the badges for thousands of GitHub repos. The domain
-        has been purchased and configured to redirect requests to the still-functioning
+    <p>Some time ago, the
+        <a href="https://web.archive.org/web/20150318013508/https://pypip.in/">original pypip.in service</a> shut down. This broke the badges for thousands of GitHub repos. The domain has been
+        purchased and configured to redirect requests to the still-functioning
         <a href="https://shields.io/">shields.io</a> service.
     </p>
     <p>Since this is costing money to operate, we'd appreciate it if you could change your URLs to point at shields.io directly.</p>
@@ -34,6 +35,15 @@
                         count" badges are broken (they display "no longer available". See
                         <a href="https://github.com/badges/shields/issues/716">this</a> and the
                         <a href="#preview">preview below</a>).</p>
+                </div>
+                <div id="egg_badge_warning" class="warning" hidden=true>
+                    <p>There is no equivalent to the /egg/ endpoint in the shields.io API. We'd recommend that you simply delete
+                        the badge, as everyone has
+                        <a href="https://pythonwheels.com/">moved to "wheels" anyway.</a>
+                    </p>
+                </div>
+                <div id="failed_warning" class="warning" hidden=true>
+                    <p>Unable to parse input URL.</p>
                 </div>
                 <div>
                     <p id="preview" class="prompt" hidden="true">Preview:</p>

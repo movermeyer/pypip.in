@@ -51,35 +51,42 @@ function pypip_dot_in_to_shields_dot_io(url) {
     convert_params(url_params);
 
     var endpoint = parser.pathname.split('/')[1];
+    var project = parser.pathname.split('/')[2];
+
     var is_download_count_badge = false;
+    var is_egg_badge = endpoint === 'egg';
+
     if (endpoint === 'd' || endpoint === 'download') {
         shields_endpoint = handle_downloads_endpoint(url_params);
         is_download_count_badge = true;
     } else {
         shields_endpoint = ENDPOINT_CONVERSION.get(endpoint);
     }
+
     if (shields_endpoint === undefined) {
-        result = url;
+        result = null
+    } else {
+        result = `https://img.shields.io/pypi/${shields_endpoint}/${project}.svg${url_params.keys().next().done ? '' : '?' + url_params.toString()}`;
     }
 
-    var project = parser.pathname.split('/')[2];
-
-    var result = `https://img.shields.io/pypi/${shields_endpoint}/${project}.svg${url_params.keys().next().done ? '' : '?' + url_params.toString()}`;
-    return [result, is_download_count_badge];
+    return [result, is_download_count_badge, is_egg_badge];
 }
 
 function go() {
     var results = pypip_dot_in_to_shields_dot_io(document.getElementById('pypip_url').value);
-    var shields_dot_io_url = results[0]
-    document.getElementById('shieldsio_url').value = shields_dot_io_url;
+    var shields_dot_io_url = results[0];
+    var is_download_count_badge = results[1]
+    var is_egg_badge = results[2]
 
-    document.getElementById('preview').hidden = false;
+    document.getElementById('shieldsio_url').value = shields_dot_io_url !== null ? shields_dot_io_url : "";
+    document.getElementById('preview').hidden = !(shields_dot_io_url !== null);
     var resulting_badge_link = document.getElementById('resulting_badge').href = shields_dot_io_url;
     var resulting_badge = document.getElementById('resulting_badge');
     resulting_badge.src = shields_dot_io_url;
-    resulting_badge.hidden = false;
+    resulting_badge.hidden = !(shields_dot_io_url !== null);
 
-    var is_download_count_badge = results[1]
+    document.getElementById("egg_badge_warning").hidden = !is_egg_badge
+    document.getElementById("failed_warning").hidden = !(shields_dot_io_url === null && !is_egg_badge)
     document.getElementById("download_badge_warning").hidden = !is_download_count_badge
 }
 
