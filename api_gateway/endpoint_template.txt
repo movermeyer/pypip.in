@@ -1,0 +1,65 @@
+    "/{endpoint}/{{package}}/badge.{badge_format}": {{
+      "get": {{
+        "tags": [],
+        "summary": "{description}",
+        "deprecated": true,
+        "operationId": "{operation_id}",
+        "produces": [
+          "{result_type}"
+        ],
+        "parameters": [
+          {{
+            "name": "package",
+            "in": "path",
+            "description": "The PyPI package to produce the badge for",
+            "required": true,
+            "type": "string"
+          }},
+          {{
+            "name": "text",
+            "in": "query",
+            "description": "Override the default left-hand-side text (URL-Encoding needed for spaces or special characters!)",
+            "required": false,
+            "type": "string"
+          }}{style_param}
+        ],
+        "responses": {{
+          "200": {{
+            "description": "Successful operation",
+            "schema": {{
+              "type": "file"
+            }},
+            "headers": {{
+              "Access-Control-Allow-Origin": {{
+                "type": "string",
+                "description": "URI that may access the resource"
+              }},
+              "Content-Type": {{
+                "type": "string",
+                "description": "Response MIME type"
+              }}
+            }}
+          }}
+        }},
+        "x-amazon-apigateway-integration": {{
+          "responses": {{
+            "default": {{
+              "statusCode": "200",
+              "responseParameters": {{
+                "method.response.header.Content-Type": "integration.response.header.Content-Type",
+                "method.response.header.Access-Control-Allow-Origin": "'*'"
+              }},
+              "contentHandling": "CONVERT_TO_BINARY"
+            }}
+          }},
+          "requestParameters": {{
+            "integration.request.path.package": "method.request.path.package",
+            "integration.request.querystring.label": "method.request.querystring.text"{style_param_mapping}
+          }},
+          "uri": "https://img.shields.io/pypi/{mapped_endpoint}/{{package}}.{badge_format}",
+          "passthroughBehavior": "when_no_match",
+          "httpMethod": "GET",
+          "type": "http"
+        }}
+      }}
+    }}{is_last}

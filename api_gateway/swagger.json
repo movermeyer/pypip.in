@@ -1,0 +1,1726 @@
+
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "A recreation of the (shuttered) pypip.in API that uses shields.io instead",
+    "title": "pypip.in Replacement API",
+    "version": "1.0.0"
+  },
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "paths": {
+    "/format/{package}/badge.png": {
+      "get": {
+        "tags": [],
+        "summary": "A badge describing the format that the Python library is packaged as (ex. wheel, egg)",
+        "deprecated": true,
+        "operationId": "get-format-badge-png",
+        "produces": [
+          "image/png"
+        ],
+        "parameters": [
+          {
+            "name": "package",
+            "in": "path",
+            "description": "The PyPI package to produce the badge for",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "text",
+            "in": "query",
+            "description": "Override the default left-hand-side text (URL-Encoding needed for spaces or special characters!)",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "style",
+            "in": "query",
+            "description": "The style you want to use for the badge (flat is the default as of Feb 1st 2015)",
+            "required": false,
+            "type": "string"
+          }
+
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "file"
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string",
+                "description": "URI that may access the resource"
+              },
+              "Content-Type": {
+                "type": "string",
+                "description": "Response MIME type"
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseParameters": {
+                "method.response.header.Content-Type": "integration.response.header.Content-Type",
+                "method.response.header.Access-Control-Allow-Origin": "'*'"
+              },
+              "contentHandling": "CONVERT_TO_BINARY"
+            }
+          },
+          "requestParameters": {
+            "integration.request.path.package": "method.request.path.package",
+            "integration.request.querystring.label": "method.request.querystring.text",
+            "integration.request.querystring.style": "method.request.querystring.style"
+          },
+          "uri": "https://img.shields.io/pypi/format/{package}.png",
+          "passthroughBehavior": "when_no_match",
+          "httpMethod": "GET",
+          "type": "http"
+        }
+      }
+    },
+    "/format/{package}/badge.svg": {
+      "get": {
+        "tags": [],
+        "summary": "A badge describing the format that the Python library is packaged as (ex. wheel, egg)",
+        "deprecated": true,
+        "operationId": "get-format-badge-svg",
+        "produces": [
+          "image/svg+xml"
+        ],
+        "parameters": [
+          {
+            "name": "package",
+            "in": "path",
+            "description": "The PyPI package to produce the badge for",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "text",
+            "in": "query",
+            "description": "Override the default left-hand-side text (URL-Encoding needed for spaces or special characters!)",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "style",
+            "in": "query",
+            "description": "The style you want to use for the badge (flat is the default as of Feb 1st 2015)",
+            "required": false,
+            "type": "string"
+          }
+
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "file"
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string",
+                "description": "URI that may access the resource"
+              },
+              "Content-Type": {
+                "type": "string",
+                "description": "Response MIME type"
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseParameters": {
+                "method.response.header.Content-Type": "integration.response.header.Content-Type",
+                "method.response.header.Access-Control-Allow-Origin": "'*'"
+              },
+              "contentHandling": "CONVERT_TO_BINARY"
+            }
+          },
+          "requestParameters": {
+            "integration.request.path.package": "method.request.path.package",
+            "integration.request.querystring.label": "method.request.querystring.text",
+            "integration.request.querystring.style": "method.request.querystring.style"
+          },
+          "uri": "https://img.shields.io/pypi/format/{package}.svg",
+          "passthroughBehavior": "when_no_match",
+          "httpMethod": "GET",
+          "type": "http"
+        }
+      }
+    },
+    "/format/{package}/badge.json": {
+      "get": {
+        "tags": [],
+        "summary": "A badge describing the format that the Python library is packaged as (ex. wheel, egg)",
+        "deprecated": true,
+        "operationId": "get-format-badge-json",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "package",
+            "in": "path",
+            "description": "The PyPI package to produce the badge for",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "text",
+            "in": "query",
+            "description": "Override the default left-hand-side text (URL-Encoding needed for spaces or special characters!)",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "file"
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string",
+                "description": "URI that may access the resource"
+              },
+              "Content-Type": {
+                "type": "string",
+                "description": "Response MIME type"
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseParameters": {
+                "method.response.header.Content-Type": "integration.response.header.Content-Type",
+                "method.response.header.Access-Control-Allow-Origin": "'*'"
+              },
+              "contentHandling": "CONVERT_TO_BINARY"
+            }
+          },
+          "requestParameters": {
+            "integration.request.path.package": "method.request.path.package",
+            "integration.request.querystring.label": "method.request.querystring.text"
+          },
+          "uri": "https://img.shields.io/pypi/format/{package}.json",
+          "passthroughBehavior": "when_no_match",
+          "httpMethod": "GET",
+          "type": "http"
+        }
+      }
+    },
+    "/implementation/{package}/badge.png": {
+      "get": {
+        "tags": [],
+        "summary": "A badge describing the Python implementations that the Python library is developed for (ex. cpython, PyPy)",
+        "deprecated": true,
+        "operationId": "get-implementation-badge-png",
+        "produces": [
+          "image/png"
+        ],
+        "parameters": [
+          {
+            "name": "package",
+            "in": "path",
+            "description": "The PyPI package to produce the badge for",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "text",
+            "in": "query",
+            "description": "Override the default left-hand-side text (URL-Encoding needed for spaces or special characters!)",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "style",
+            "in": "query",
+            "description": "The style you want to use for the badge (flat is the default as of Feb 1st 2015)",
+            "required": false,
+            "type": "string"
+          }
+
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "file"
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string",
+                "description": "URI that may access the resource"
+              },
+              "Content-Type": {
+                "type": "string",
+                "description": "Response MIME type"
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseParameters": {
+                "method.response.header.Content-Type": "integration.response.header.Content-Type",
+                "method.response.header.Access-Control-Allow-Origin": "'*'"
+              },
+              "contentHandling": "CONVERT_TO_BINARY"
+            }
+          },
+          "requestParameters": {
+            "integration.request.path.package": "method.request.path.package",
+            "integration.request.querystring.label": "method.request.querystring.text",
+            "integration.request.querystring.style": "method.request.querystring.style"
+          },
+          "uri": "https://img.shields.io/pypi/implementation/{package}.png",
+          "passthroughBehavior": "when_no_match",
+          "httpMethod": "GET",
+          "type": "http"
+        }
+      }
+    },
+    "/implementation/{package}/badge.svg": {
+      "get": {
+        "tags": [],
+        "summary": "A badge describing the Python implementations that the Python library is developed for (ex. cpython, PyPy)",
+        "deprecated": true,
+        "operationId": "get-implementation-badge-svg",
+        "produces": [
+          "image/svg+xml"
+        ],
+        "parameters": [
+          {
+            "name": "package",
+            "in": "path",
+            "description": "The PyPI package to produce the badge for",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "text",
+            "in": "query",
+            "description": "Override the default left-hand-side text (URL-Encoding needed for spaces or special characters!)",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "style",
+            "in": "query",
+            "description": "The style you want to use for the badge (flat is the default as of Feb 1st 2015)",
+            "required": false,
+            "type": "string"
+          }
+
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "file"
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string",
+                "description": "URI that may access the resource"
+              },
+              "Content-Type": {
+                "type": "string",
+                "description": "Response MIME type"
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseParameters": {
+                "method.response.header.Content-Type": "integration.response.header.Content-Type",
+                "method.response.header.Access-Control-Allow-Origin": "'*'"
+              },
+              "contentHandling": "CONVERT_TO_BINARY"
+            }
+          },
+          "requestParameters": {
+            "integration.request.path.package": "method.request.path.package",
+            "integration.request.querystring.label": "method.request.querystring.text",
+            "integration.request.querystring.style": "method.request.querystring.style"
+          },
+          "uri": "https://img.shields.io/pypi/implementation/{package}.svg",
+          "passthroughBehavior": "when_no_match",
+          "httpMethod": "GET",
+          "type": "http"
+        }
+      }
+    },
+    "/implementation/{package}/badge.json": {
+      "get": {
+        "tags": [],
+        "summary": "A badge describing the Python implementations that the Python library is developed for (ex. cpython, PyPy)",
+        "deprecated": true,
+        "operationId": "get-implementation-badge-json",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "package",
+            "in": "path",
+            "description": "The PyPI package to produce the badge for",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "text",
+            "in": "query",
+            "description": "Override the default left-hand-side text (URL-Encoding needed for spaces or special characters!)",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "file"
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string",
+                "description": "URI that may access the resource"
+              },
+              "Content-Type": {
+                "type": "string",
+                "description": "Response MIME type"
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseParameters": {
+                "method.response.header.Content-Type": "integration.response.header.Content-Type",
+                "method.response.header.Access-Control-Allow-Origin": "'*'"
+              },
+              "contentHandling": "CONVERT_TO_BINARY"
+            }
+          },
+          "requestParameters": {
+            "integration.request.path.package": "method.request.path.package",
+            "integration.request.querystring.label": "method.request.querystring.text"
+          },
+          "uri": "https://img.shields.io/pypi/implementation/{package}.json",
+          "passthroughBehavior": "when_no_match",
+          "httpMethod": "GET",
+          "type": "http"
+        }
+      }
+    },
+    "/license/{package}/badge.png": {
+      "get": {
+        "tags": [],
+        "summary": "A badge describing the software license that the Python library is packaged as (ex. BSD, MIT)",
+        "deprecated": true,
+        "operationId": "get-license-badge-png",
+        "produces": [
+          "image/png"
+        ],
+        "parameters": [
+          {
+            "name": "package",
+            "in": "path",
+            "description": "The PyPI package to produce the badge for",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "text",
+            "in": "query",
+            "description": "Override the default left-hand-side text (URL-Encoding needed for spaces or special characters!)",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "style",
+            "in": "query",
+            "description": "The style you want to use for the badge (flat is the default as of Feb 1st 2015)",
+            "required": false,
+            "type": "string"
+          }
+
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "file"
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string",
+                "description": "URI that may access the resource"
+              },
+              "Content-Type": {
+                "type": "string",
+                "description": "Response MIME type"
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseParameters": {
+                "method.response.header.Content-Type": "integration.response.header.Content-Type",
+                "method.response.header.Access-Control-Allow-Origin": "'*'"
+              },
+              "contentHandling": "CONVERT_TO_BINARY"
+            }
+          },
+          "requestParameters": {
+            "integration.request.path.package": "method.request.path.package",
+            "integration.request.querystring.label": "method.request.querystring.text",
+            "integration.request.querystring.style": "method.request.querystring.style"
+          },
+          "uri": "https://img.shields.io/pypi/l/{package}.png",
+          "passthroughBehavior": "when_no_match",
+          "httpMethod": "GET",
+          "type": "http"
+        }
+      }
+    },
+    "/license/{package}/badge.svg": {
+      "get": {
+        "tags": [],
+        "summary": "A badge describing the software license that the Python library is packaged as (ex. BSD, MIT)",
+        "deprecated": true,
+        "operationId": "get-license-badge-svg",
+        "produces": [
+          "image/svg+xml"
+        ],
+        "parameters": [
+          {
+            "name": "package",
+            "in": "path",
+            "description": "The PyPI package to produce the badge for",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "text",
+            "in": "query",
+            "description": "Override the default left-hand-side text (URL-Encoding needed for spaces or special characters!)",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "style",
+            "in": "query",
+            "description": "The style you want to use for the badge (flat is the default as of Feb 1st 2015)",
+            "required": false,
+            "type": "string"
+          }
+
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "file"
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string",
+                "description": "URI that may access the resource"
+              },
+              "Content-Type": {
+                "type": "string",
+                "description": "Response MIME type"
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseParameters": {
+                "method.response.header.Content-Type": "integration.response.header.Content-Type",
+                "method.response.header.Access-Control-Allow-Origin": "'*'"
+              },
+              "contentHandling": "CONVERT_TO_BINARY"
+            }
+          },
+          "requestParameters": {
+            "integration.request.path.package": "method.request.path.package",
+            "integration.request.querystring.label": "method.request.querystring.text",
+            "integration.request.querystring.style": "method.request.querystring.style"
+          },
+          "uri": "https://img.shields.io/pypi/l/{package}.svg",
+          "passthroughBehavior": "when_no_match",
+          "httpMethod": "GET",
+          "type": "http"
+        }
+      }
+    },
+    "/license/{package}/badge.json": {
+      "get": {
+        "tags": [],
+        "summary": "A badge describing the software license that the Python library is packaged as (ex. BSD, MIT)",
+        "deprecated": true,
+        "operationId": "get-license-badge-json",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "package",
+            "in": "path",
+            "description": "The PyPI package to produce the badge for",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "text",
+            "in": "query",
+            "description": "Override the default left-hand-side text (URL-Encoding needed for spaces or special characters!)",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "file"
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string",
+                "description": "URI that may access the resource"
+              },
+              "Content-Type": {
+                "type": "string",
+                "description": "Response MIME type"
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseParameters": {
+                "method.response.header.Content-Type": "integration.response.header.Content-Type",
+                "method.response.header.Access-Control-Allow-Origin": "'*'"
+              },
+              "contentHandling": "CONVERT_TO_BINARY"
+            }
+          },
+          "requestParameters": {
+            "integration.request.path.package": "method.request.path.package",
+            "integration.request.querystring.label": "method.request.querystring.text"
+          },
+          "uri": "https://img.shields.io/pypi/l/{package}.json",
+          "passthroughBehavior": "when_no_match",
+          "httpMethod": "GET",
+          "type": "http"
+        }
+      }
+    },
+    "/py_versions/{package}/badge.png": {
+      "get": {
+        "tags": [],
+        "summary": "A badge describing the Python versions that the library supports (ex. 2.7, 3.4)",
+        "deprecated": true,
+        "operationId": "get-py_versions-badge-png",
+        "produces": [
+          "image/png"
+        ],
+        "parameters": [
+          {
+            "name": "package",
+            "in": "path",
+            "description": "The PyPI package to produce the badge for",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "text",
+            "in": "query",
+            "description": "Override the default left-hand-side text (URL-Encoding needed for spaces or special characters!)",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "style",
+            "in": "query",
+            "description": "The style you want to use for the badge (flat is the default as of Feb 1st 2015)",
+            "required": false,
+            "type": "string"
+          }
+
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "file"
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string",
+                "description": "URI that may access the resource"
+              },
+              "Content-Type": {
+                "type": "string",
+                "description": "Response MIME type"
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseParameters": {
+                "method.response.header.Content-Type": "integration.response.header.Content-Type",
+                "method.response.header.Access-Control-Allow-Origin": "'*'"
+              },
+              "contentHandling": "CONVERT_TO_BINARY"
+            }
+          },
+          "requestParameters": {
+            "integration.request.path.package": "method.request.path.package",
+            "integration.request.querystring.label": "method.request.querystring.text",
+            "integration.request.querystring.style": "method.request.querystring.style"
+          },
+          "uri": "https://img.shields.io/pypi/pyversions/{package}.png",
+          "passthroughBehavior": "when_no_match",
+          "httpMethod": "GET",
+          "type": "http"
+        }
+      }
+    },
+    "/py_versions/{package}/badge.svg": {
+      "get": {
+        "tags": [],
+        "summary": "A badge describing the Python versions that the library supports (ex. 2.7, 3.4)",
+        "deprecated": true,
+        "operationId": "get-py_versions-badge-svg",
+        "produces": [
+          "image/svg+xml"
+        ],
+        "parameters": [
+          {
+            "name": "package",
+            "in": "path",
+            "description": "The PyPI package to produce the badge for",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "text",
+            "in": "query",
+            "description": "Override the default left-hand-side text (URL-Encoding needed for spaces or special characters!)",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "style",
+            "in": "query",
+            "description": "The style you want to use for the badge (flat is the default as of Feb 1st 2015)",
+            "required": false,
+            "type": "string"
+          }
+
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "file"
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string",
+                "description": "URI that may access the resource"
+              },
+              "Content-Type": {
+                "type": "string",
+                "description": "Response MIME type"
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseParameters": {
+                "method.response.header.Content-Type": "integration.response.header.Content-Type",
+                "method.response.header.Access-Control-Allow-Origin": "'*'"
+              },
+              "contentHandling": "CONVERT_TO_BINARY"
+            }
+          },
+          "requestParameters": {
+            "integration.request.path.package": "method.request.path.package",
+            "integration.request.querystring.label": "method.request.querystring.text",
+            "integration.request.querystring.style": "method.request.querystring.style"
+          },
+          "uri": "https://img.shields.io/pypi/pyversions/{package}.svg",
+          "passthroughBehavior": "when_no_match",
+          "httpMethod": "GET",
+          "type": "http"
+        }
+      }
+    },
+    "/py_versions/{package}/badge.json": {
+      "get": {
+        "tags": [],
+        "summary": "A badge describing the Python versions that the library supports (ex. 2.7, 3.4)",
+        "deprecated": true,
+        "operationId": "get-py_versions-badge-json",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "package",
+            "in": "path",
+            "description": "The PyPI package to produce the badge for",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "text",
+            "in": "query",
+            "description": "Override the default left-hand-side text (URL-Encoding needed for spaces or special characters!)",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "file"
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string",
+                "description": "URI that may access the resource"
+              },
+              "Content-Type": {
+                "type": "string",
+                "description": "Response MIME type"
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseParameters": {
+                "method.response.header.Content-Type": "integration.response.header.Content-Type",
+                "method.response.header.Access-Control-Allow-Origin": "'*'"
+              },
+              "contentHandling": "CONVERT_TO_BINARY"
+            }
+          },
+          "requestParameters": {
+            "integration.request.path.package": "method.request.path.package",
+            "integration.request.querystring.label": "method.request.querystring.text"
+          },
+          "uri": "https://img.shields.io/pypi/pyversions/{package}.json",
+          "passthroughBehavior": "when_no_match",
+          "httpMethod": "GET",
+          "type": "http"
+        }
+      }
+    },
+    "/status/{package}/badge.png": {
+      "get": {
+        "tags": [],
+        "summary": "A badge describing the development status of the Python library (ex. alpha, stable)",
+        "deprecated": true,
+        "operationId": "get-status-badge-png",
+        "produces": [
+          "image/png"
+        ],
+        "parameters": [
+          {
+            "name": "package",
+            "in": "path",
+            "description": "The PyPI package to produce the badge for",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "text",
+            "in": "query",
+            "description": "Override the default left-hand-side text (URL-Encoding needed for spaces or special characters!)",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "style",
+            "in": "query",
+            "description": "The style you want to use for the badge (flat is the default as of Feb 1st 2015)",
+            "required": false,
+            "type": "string"
+          }
+
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "file"
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string",
+                "description": "URI that may access the resource"
+              },
+              "Content-Type": {
+                "type": "string",
+                "description": "Response MIME type"
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseParameters": {
+                "method.response.header.Content-Type": "integration.response.header.Content-Type",
+                "method.response.header.Access-Control-Allow-Origin": "'*'"
+              },
+              "contentHandling": "CONVERT_TO_BINARY"
+            }
+          },
+          "requestParameters": {
+            "integration.request.path.package": "method.request.path.package",
+            "integration.request.querystring.label": "method.request.querystring.text",
+            "integration.request.querystring.style": "method.request.querystring.style"
+          },
+          "uri": "https://img.shields.io/pypi/status/{package}.png",
+          "passthroughBehavior": "when_no_match",
+          "httpMethod": "GET",
+          "type": "http"
+        }
+      }
+    },
+    "/status/{package}/badge.svg": {
+      "get": {
+        "tags": [],
+        "summary": "A badge describing the development status of the Python library (ex. alpha, stable)",
+        "deprecated": true,
+        "operationId": "get-status-badge-svg",
+        "produces": [
+          "image/svg+xml"
+        ],
+        "parameters": [
+          {
+            "name": "package",
+            "in": "path",
+            "description": "The PyPI package to produce the badge for",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "text",
+            "in": "query",
+            "description": "Override the default left-hand-side text (URL-Encoding needed for spaces or special characters!)",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "style",
+            "in": "query",
+            "description": "The style you want to use for the badge (flat is the default as of Feb 1st 2015)",
+            "required": false,
+            "type": "string"
+          }
+
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "file"
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string",
+                "description": "URI that may access the resource"
+              },
+              "Content-Type": {
+                "type": "string",
+                "description": "Response MIME type"
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseParameters": {
+                "method.response.header.Content-Type": "integration.response.header.Content-Type",
+                "method.response.header.Access-Control-Allow-Origin": "'*'"
+              },
+              "contentHandling": "CONVERT_TO_BINARY"
+            }
+          },
+          "requestParameters": {
+            "integration.request.path.package": "method.request.path.package",
+            "integration.request.querystring.label": "method.request.querystring.text",
+            "integration.request.querystring.style": "method.request.querystring.style"
+          },
+          "uri": "https://img.shields.io/pypi/status/{package}.svg",
+          "passthroughBehavior": "when_no_match",
+          "httpMethod": "GET",
+          "type": "http"
+        }
+      }
+    },
+    "/status/{package}/badge.json": {
+      "get": {
+        "tags": [],
+        "summary": "A badge describing the development status of the Python library (ex. alpha, stable)",
+        "deprecated": true,
+        "operationId": "get-status-badge-json",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "package",
+            "in": "path",
+            "description": "The PyPI package to produce the badge for",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "text",
+            "in": "query",
+            "description": "Override the default left-hand-side text (URL-Encoding needed for spaces or special characters!)",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "file"
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string",
+                "description": "URI that may access the resource"
+              },
+              "Content-Type": {
+                "type": "string",
+                "description": "Response MIME type"
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseParameters": {
+                "method.response.header.Content-Type": "integration.response.header.Content-Type",
+                "method.response.header.Access-Control-Allow-Origin": "'*'"
+              },
+              "contentHandling": "CONVERT_TO_BINARY"
+            }
+          },
+          "requestParameters": {
+            "integration.request.path.package": "method.request.path.package",
+            "integration.request.querystring.label": "method.request.querystring.text"
+          },
+          "uri": "https://img.shields.io/pypi/status/{package}.json",
+          "passthroughBehavior": "when_no_match",
+          "httpMethod": "GET",
+          "type": "http"
+        }
+      }
+    },
+    "/v/{package}/badge.png": {
+      "get": {
+        "tags": [],
+        "summary": "A badge describing the version of the Python library. Alias of `version`",
+        "deprecated": true,
+        "operationId": "get-v-badge-png",
+        "produces": [
+          "image/png"
+        ],
+        "parameters": [
+          {
+            "name": "package",
+            "in": "path",
+            "description": "The PyPI package to produce the badge for",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "text",
+            "in": "query",
+            "description": "Override the default left-hand-side text (URL-Encoding needed for spaces or special characters!)",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "style",
+            "in": "query",
+            "description": "The style you want to use for the badge (flat is the default as of Feb 1st 2015)",
+            "required": false,
+            "type": "string"
+          }
+
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "file"
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string",
+                "description": "URI that may access the resource"
+              },
+              "Content-Type": {
+                "type": "string",
+                "description": "Response MIME type"
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseParameters": {
+                "method.response.header.Content-Type": "integration.response.header.Content-Type",
+                "method.response.header.Access-Control-Allow-Origin": "'*'"
+              },
+              "contentHandling": "CONVERT_TO_BINARY"
+            }
+          },
+          "requestParameters": {
+            "integration.request.path.package": "method.request.path.package",
+            "integration.request.querystring.label": "method.request.querystring.text",
+            "integration.request.querystring.style": "method.request.querystring.style"
+          },
+          "uri": "https://img.shields.io/pypi/v/{package}.png",
+          "passthroughBehavior": "when_no_match",
+          "httpMethod": "GET",
+          "type": "http"
+        }
+      }
+    },
+    "/v/{package}/badge.svg": {
+      "get": {
+        "tags": [],
+        "summary": "A badge describing the version of the Python library. Alias of `version`",
+        "deprecated": true,
+        "operationId": "get-v-badge-svg",
+        "produces": [
+          "image/svg+xml"
+        ],
+        "parameters": [
+          {
+            "name": "package",
+            "in": "path",
+            "description": "The PyPI package to produce the badge for",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "text",
+            "in": "query",
+            "description": "Override the default left-hand-side text (URL-Encoding needed for spaces or special characters!)",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "style",
+            "in": "query",
+            "description": "The style you want to use for the badge (flat is the default as of Feb 1st 2015)",
+            "required": false,
+            "type": "string"
+          }
+
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "file"
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string",
+                "description": "URI that may access the resource"
+              },
+              "Content-Type": {
+                "type": "string",
+                "description": "Response MIME type"
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseParameters": {
+                "method.response.header.Content-Type": "integration.response.header.Content-Type",
+                "method.response.header.Access-Control-Allow-Origin": "'*'"
+              },
+              "contentHandling": "CONVERT_TO_BINARY"
+            }
+          },
+          "requestParameters": {
+            "integration.request.path.package": "method.request.path.package",
+            "integration.request.querystring.label": "method.request.querystring.text",
+            "integration.request.querystring.style": "method.request.querystring.style"
+          },
+          "uri": "https://img.shields.io/pypi/v/{package}.svg",
+          "passthroughBehavior": "when_no_match",
+          "httpMethod": "GET",
+          "type": "http"
+        }
+      }
+    },
+    "/v/{package}/badge.json": {
+      "get": {
+        "tags": [],
+        "summary": "A badge describing the version of the Python library. Alias of `version`",
+        "deprecated": true,
+        "operationId": "get-v-badge-json",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "package",
+            "in": "path",
+            "description": "The PyPI package to produce the badge for",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "text",
+            "in": "query",
+            "description": "Override the default left-hand-side text (URL-Encoding needed for spaces or special characters!)",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "file"
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string",
+                "description": "URI that may access the resource"
+              },
+              "Content-Type": {
+                "type": "string",
+                "description": "Response MIME type"
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseParameters": {
+                "method.response.header.Content-Type": "integration.response.header.Content-Type",
+                "method.response.header.Access-Control-Allow-Origin": "'*'"
+              },
+              "contentHandling": "CONVERT_TO_BINARY"
+            }
+          },
+          "requestParameters": {
+            "integration.request.path.package": "method.request.path.package",
+            "integration.request.querystring.label": "method.request.querystring.text"
+          },
+          "uri": "https://img.shields.io/pypi/v/{package}.json",
+          "passthroughBehavior": "when_no_match",
+          "httpMethod": "GET",
+          "type": "http"
+        }
+      }
+    },
+    "/version/{package}/badge.png": {
+      "get": {
+        "tags": [],
+        "summary": "A badge describing the version of the Python library.",
+        "deprecated": true,
+        "operationId": "get-version-badge-png",
+        "produces": [
+          "image/png"
+        ],
+        "parameters": [
+          {
+            "name": "package",
+            "in": "path",
+            "description": "The PyPI package to produce the badge for",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "text",
+            "in": "query",
+            "description": "Override the default left-hand-side text (URL-Encoding needed for spaces or special characters!)",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "style",
+            "in": "query",
+            "description": "The style you want to use for the badge (flat is the default as of Feb 1st 2015)",
+            "required": false,
+            "type": "string"
+          }
+
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "file"
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string",
+                "description": "URI that may access the resource"
+              },
+              "Content-Type": {
+                "type": "string",
+                "description": "Response MIME type"
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseParameters": {
+                "method.response.header.Content-Type": "integration.response.header.Content-Type",
+                "method.response.header.Access-Control-Allow-Origin": "'*'"
+              },
+              "contentHandling": "CONVERT_TO_BINARY"
+            }
+          },
+          "requestParameters": {
+            "integration.request.path.package": "method.request.path.package",
+            "integration.request.querystring.label": "method.request.querystring.text",
+            "integration.request.querystring.style": "method.request.querystring.style"
+          },
+          "uri": "https://img.shields.io/pypi/v/{package}.png",
+          "passthroughBehavior": "when_no_match",
+          "httpMethod": "GET",
+          "type": "http"
+        }
+      }
+    },
+    "/version/{package}/badge.svg": {
+      "get": {
+        "tags": [],
+        "summary": "A badge describing the version of the Python library.",
+        "deprecated": true,
+        "operationId": "get-version-badge-svg",
+        "produces": [
+          "image/svg+xml"
+        ],
+        "parameters": [
+          {
+            "name": "package",
+            "in": "path",
+            "description": "The PyPI package to produce the badge for",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "text",
+            "in": "query",
+            "description": "Override the default left-hand-side text (URL-Encoding needed for spaces or special characters!)",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "style",
+            "in": "query",
+            "description": "The style you want to use for the badge (flat is the default as of Feb 1st 2015)",
+            "required": false,
+            "type": "string"
+          }
+
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "file"
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string",
+                "description": "URI that may access the resource"
+              },
+              "Content-Type": {
+                "type": "string",
+                "description": "Response MIME type"
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseParameters": {
+                "method.response.header.Content-Type": "integration.response.header.Content-Type",
+                "method.response.header.Access-Control-Allow-Origin": "'*'"
+              },
+              "contentHandling": "CONVERT_TO_BINARY"
+            }
+          },
+          "requestParameters": {
+            "integration.request.path.package": "method.request.path.package",
+            "integration.request.querystring.label": "method.request.querystring.text",
+            "integration.request.querystring.style": "method.request.querystring.style"
+          },
+          "uri": "https://img.shields.io/pypi/v/{package}.svg",
+          "passthroughBehavior": "when_no_match",
+          "httpMethod": "GET",
+          "type": "http"
+        }
+      }
+    },
+    "/version/{package}/badge.json": {
+      "get": {
+        "tags": [],
+        "summary": "A badge describing the version of the Python library.",
+        "deprecated": true,
+        "operationId": "get-version-badge-json",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "package",
+            "in": "path",
+            "description": "The PyPI package to produce the badge for",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "text",
+            "in": "query",
+            "description": "Override the default left-hand-side text (URL-Encoding needed for spaces or special characters!)",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "file"
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string",
+                "description": "URI that may access the resource"
+              },
+              "Content-Type": {
+                "type": "string",
+                "description": "Response MIME type"
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseParameters": {
+                "method.response.header.Content-Type": "integration.response.header.Content-Type",
+                "method.response.header.Access-Control-Allow-Origin": "'*'"
+              },
+              "contentHandling": "CONVERT_TO_BINARY"
+            }
+          },
+          "requestParameters": {
+            "integration.request.path.package": "method.request.path.package",
+            "integration.request.querystring.label": "method.request.querystring.text"
+          },
+          "uri": "https://img.shields.io/pypi/v/{package}.json",
+          "passthroughBehavior": "when_no_match",
+          "httpMethod": "GET",
+          "type": "http"
+        }
+      }
+    },
+    "/wheel/{package}/badge.png": {
+      "get": {
+        "tags": [],
+        "summary": "A badge describing whether the Python library is packaged as a wheel (ex. yes, no).",
+        "deprecated": true,
+        "operationId": "get-wheel-badge-png",
+        "produces": [
+          "image/png"
+        ],
+        "parameters": [
+          {
+            "name": "package",
+            "in": "path",
+            "description": "The PyPI package to produce the badge for",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "text",
+            "in": "query",
+            "description": "Override the default left-hand-side text (URL-Encoding needed for spaces or special characters!)",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "style",
+            "in": "query",
+            "description": "The style you want to use for the badge (flat is the default as of Feb 1st 2015)",
+            "required": false,
+            "type": "string"
+          }
+
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "file"
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string",
+                "description": "URI that may access the resource"
+              },
+              "Content-Type": {
+                "type": "string",
+                "description": "Response MIME type"
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseParameters": {
+                "method.response.header.Content-Type": "integration.response.header.Content-Type",
+                "method.response.header.Access-Control-Allow-Origin": "'*'"
+              },
+              "contentHandling": "CONVERT_TO_BINARY"
+            }
+          },
+          "requestParameters": {
+            "integration.request.path.package": "method.request.path.package",
+            "integration.request.querystring.label": "method.request.querystring.text",
+            "integration.request.querystring.style": "method.request.querystring.style"
+          },
+          "uri": "https://img.shields.io/pypi/wheel/{package}.png",
+          "passthroughBehavior": "when_no_match",
+          "httpMethod": "GET",
+          "type": "http"
+        }
+      }
+    },
+    "/wheel/{package}/badge.svg": {
+      "get": {
+        "tags": [],
+        "summary": "A badge describing whether the Python library is packaged as a wheel (ex. yes, no).",
+        "deprecated": true,
+        "operationId": "get-wheel-badge-svg",
+        "produces": [
+          "image/svg+xml"
+        ],
+        "parameters": [
+          {
+            "name": "package",
+            "in": "path",
+            "description": "The PyPI package to produce the badge for",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "text",
+            "in": "query",
+            "description": "Override the default left-hand-side text (URL-Encoding needed for spaces or special characters!)",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "style",
+            "in": "query",
+            "description": "The style you want to use for the badge (flat is the default as of Feb 1st 2015)",
+            "required": false,
+            "type": "string"
+          }
+
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "file"
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string",
+                "description": "URI that may access the resource"
+              },
+              "Content-Type": {
+                "type": "string",
+                "description": "Response MIME type"
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseParameters": {
+                "method.response.header.Content-Type": "integration.response.header.Content-Type",
+                "method.response.header.Access-Control-Allow-Origin": "'*'"
+              },
+              "contentHandling": "CONVERT_TO_BINARY"
+            }
+          },
+          "requestParameters": {
+            "integration.request.path.package": "method.request.path.package",
+            "integration.request.querystring.label": "method.request.querystring.text",
+            "integration.request.querystring.style": "method.request.querystring.style"
+          },
+          "uri": "https://img.shields.io/pypi/wheel/{package}.svg",
+          "passthroughBehavior": "when_no_match",
+          "httpMethod": "GET",
+          "type": "http"
+        }
+      }
+    },
+    "/wheel/{package}/badge.json": {
+      "get": {
+        "tags": [],
+        "summary": "A badge describing whether the Python library is packaged as a wheel (ex. yes, no).",
+        "deprecated": true,
+        "operationId": "get-wheel-badge-json",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "package",
+            "in": "path",
+            "description": "The PyPI package to produce the badge for",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "text",
+            "in": "query",
+            "description": "Override the default left-hand-side text (URL-Encoding needed for spaces or special characters!)",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "file"
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string",
+                "description": "URI that may access the resource"
+              },
+              "Content-Type": {
+                "type": "string",
+                "description": "Response MIME type"
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseParameters": {
+                "method.response.header.Content-Type": "integration.response.header.Content-Type",
+                "method.response.header.Access-Control-Allow-Origin": "'*'"
+              },
+              "contentHandling": "CONVERT_TO_BINARY"
+            }
+          },
+          "requestParameters": {
+            "integration.request.path.package": "method.request.path.package",
+            "integration.request.querystring.label": "method.request.querystring.text"
+          },
+          "uri": "https://img.shields.io/pypi/wheel/{package}.json",
+          "passthroughBehavior": "when_no_match",
+          "httpMethod": "GET",
+          "type": "http"
+        }
+      }
+    }
+
+  },
+  "definitions": {},
+  "x-amazon-apigateway-binary-media-types" : [
+    "image/png", "image/svg+xml", "application/json"
+  ]
+
+}
+
