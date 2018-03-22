@@ -1,0 +1,40 @@
+<html>
+
+<head>
+    <style>
+        body {{
+                {{
+                color: #333;
+                font-family: Sans-serif;
+                max-width: 800px;
+                margin: auto;
+            }}
+        }}
+    </style>
+</head>
+
+<body>
+    <h1>
+        <code>/egg</code> no longer exists</h1>
+    <p> pypip.in originally had a
+        <code>/egg</code> endpoint, which presumably returned something similar to the true/false given by the
+        <code>/wheel</code> endpoint.</p>
+    <p> There is no equivalent to the
+        <code>/egg</code> endpoint in the
+        <a href='https://shields.io/'>shields.io</a> API.</p>
+    <p>(pypip.in shut down some time ago and
+        <a href='https://pypip.in/'>now just redirects requests</a> to shields.io).</p>
+    <p>You might be interested in linking to: </p>
+    <ul>
+        <li>
+            <code>https://img.shields.io/pypi/format/${{input.params('package')}}.{badge_format}</code> (
+            <image src="https://img.shields.io/pypi/format/${{input.params('package')}}.{badge_format}"></image>) or</li>
+        <li>
+            <code>https://img.shields.io/pypi/wheel/${{input.params('package')}}.{badge_format}</code> (
+            <image src="https://img.shields.io/pypi/wheel/${{input.params('package')}}.{badge_format}"></image>)
+        </li>
+    </ul>
+    <p>instead.</p>
+</body>
+
+</html>

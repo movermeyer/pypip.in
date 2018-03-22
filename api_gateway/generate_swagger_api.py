@@ -1,5 +1,8 @@
+import os
+import json
+
 ENDPOINTS = {
-    "format": ("format", "A badge describing the format that the Python library is packaged as (ex. wheel, egg)"),
+    "format": ("format", "A badge describing the format that the Python library is packaged as (ex. wheel, source)"),
     "implementation": ("implementation", "A badge describing the Python implementations that the Python library is developed for (ex. cpython, PyPy)"),
     "license": ("l", "A badge describing the software license that the Python library is packaged as (ex. BSD, MIT)"),
     "py_versions": ("pyversions", "A badge describing the Python versions that the library supports (ex. 2.7, 3.4)"),
@@ -15,6 +18,83 @@ BADGE_FORMATS = {
     "json": "application/json"
 }
 
+
+def vtl_escape(text):
+    # AWS Body Mapping Templates use Apache Velocity (VTL) markup.
+    # This is a poor man's escaping of special VTL characters
+    return text.replace('#', '#[[#]]#').replace('$', '#[[$]]#')
+
+
+def format_as_template(text):
+    return json.dumps(vtl_escape(text.replace('\r', ''))).strip('"').replace('\n', '\\n')
+
+
+with open("egg_endpoint.txt", 'r', encoding='UTF-8') as fin:
+    EGG_HTML = format_as_template(fin.read())
+
+EGG_ENDPOINT_TEMPLATE = """    "/egg/{{package}}/badge.{badge_format}": {{
+      "get": {{
+        "tags": [],
+        "description": "The /egg endpoint has no analogue in shields.io. You might want /format or /wheel instead.",
+        "produces": [
+          "text/html"
+        ],
+        "parameters": [
+          {{
+            "name": "package",
+            "in": "path",
+            "description": "The PyPI package to produce the badge for",
+            "required": true,
+            "type": "string"
+          }}
+        ],
+        "responses": {{
+          "404": {{
+            "description": "Resource Gone",
+            "headers": {{
+              "Content-Type": {{
+                "type": "string",
+                "description": "Media type of request"
+              }}
+            }}
+          }}
+        }},
+        "x-amazon-apigateway-integration": {{
+          "responses": {{
+            "default": {{
+              "statusCode": "404",
+              "responseTemplates": {{
+                "text/html": \"""" + EGG_HTML + """\"
+              }},
+              "responseParameters": {{
+                "method.response.header.Content-Type": "'text/html'"
+              }}
+            }}
+          }},
+          "passthroughBehavior": "when_no_match",
+          "requestTemplates": {{
+            "application/json": "{{\\\"statusCode\\\": 200}}"
+          }},
+          "contentHandling": "CONVERT_TO_TEXT",
+          "type": "mock"
+        }}
+      }}
+    }},
+"""
+
+JS_TAGS = []
+for json_file in (entry for entry in os.scandir(os.path.join("..", "js")) if entry.is_file() and entry.name.endswith(".js")):
+    with open(json_file.path, 'r', encoding='UTF-8') as fin:
+        JS_TAGS.append(f"""<script type="text/javascript">{fin.read()}</script>""")
+
+CSS_TAGS = []
+for css_file in (entry for entry in os.scandir(os.path.join("..", "css")) if entry.is_file() and entry.name.endswith(".css")):
+    with open(css_file.path, 'r', encoding='UTF-8') as fin:
+        CSS_TAGS.append(f"""<style>{fin.read()}</style>""")
+
+with open(os.path.join("..", "index.html"), 'r', encoding='UTF-8') as fin:
+    INDEX_HTML = format_as_template(fin.read().format(styles="\n".join(CSS_TAGS), scripts="\n".join(JS_TAGS)))
+
 HEADER = """
 {
   "swagger": "2.0",
@@ -28,6 +108,45 @@ HEADER = """
     "http"
   ],
   "paths": {
+    "/": {
+      "get": {
+        "tags": [],
+        "description": "The main landing page of the new pypip.in",
+        "produces": [
+          "text/html"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "Content-Type": {
+                "type": "string",
+                "description": "Media type of request"
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseTemplates": {
+                "text/html": \"""" + INDEX_HTML + """\"
+              },
+              "responseParameters": {
+                "method.response.header.Content-Type": "'text/html'"
+              }
+            }
+          },
+          "passthroughBehavior": "when_no_match",
+          "requestTemplates": {
+            "application/json": "{\\\"statusCode\\\": 200}"
+          },
+          "contentHandling": "CONVERT_TO_TEXT",
+          "type": "mock"
+        }
+      }
+    },
 """
 
 MIME_TYPE_LIST = [f"\"{mime_type}\"" for mime_type in BADGE_FORMATS.values()]
@@ -89,7 +208,9 @@ def main():
     with open("swagger.json", 'w') as fout:
         fout.write(HEADER)
 
-        aws_endpoint_configs = []
+        for index, badge_format in enumerate(BADGE_FORMATS.keys()):
+            fout.write(EGG_ENDPOINT_TEMPLATE.format(badge_format=badge_format))
+
         total_count = len(ENDPOINTS) * len(BADGE_FORMATS)
         processed_count = 0
         for endpoint, (mapped_endpoint, description) in ENDPOINTS.items():
@@ -110,13 +231,7 @@ def main():
                                                     style_param_mapping=style_param_mapping,
                                                     content_handling=content_handling,
                                                     is_last=is_last))
-                # aws_endpoint_configs.append(AWS_ENDPOINT_TEMPLATE.format(endpoint=endpoint, badge_format=badge_format, description=description))
-
         fout.write(MIDDLE)
-
-        for aws_endpoint_config in aws_endpoint_configs:
-            fout.write(aws_endpoint_config)
-
         fout.write(FOOTER)
 
 
