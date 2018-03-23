@@ -30,7 +30,7 @@ def format_as_template(text):
 
 
 with open("egg_endpoint.txt", 'r', encoding='UTF-8') as fin:
-    EGG_HTML = format_as_template(fin.read())
+    EGG_HTML = json.dumps(fin.read().replace('\r', '')).strip('"').replace('\n', '\\n')
 
 EGG_ENDPOINT_TEMPLATE = """    "/egg/{{package}}/badge.{badge_format}": {{
       "get": {{
