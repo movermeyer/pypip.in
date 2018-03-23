@@ -1,3 +1,6 @@
+import boto3
+
+
 PYPIP_IN_REGEX_TO_SHIELDS_IO = {
     "format": "format",
     "implementation": "implementation",
@@ -7,12 +10,6 @@ PYPIP_IN_REGEX_TO_SHIELDS_IO = {
     "v": "v",
     "version": "v",
     "wheel": "wheel"
-}
-
-BADGE_FORMATS = {
-    "png": "image/png",
-    "svg": "image/svg+xml",
-    "json": "application/json"
 }
 
 
@@ -49,13 +46,29 @@ def pypip_in_to_shields_io(event):
 
 
 def lambda_handler(event, context):
+    headers = event["headers"] or {}
+    referer = headers.get("x-amzn-Remapped-Referer") or headers.get("Referer")
+    referer_counts = boto3.resource('dynamodb').Table('referer_counts')
+    
+    referer_counts.update_item(
+        Key={
+            'url': str(referer),
+        },
+        UpdateExpression='SET hits = if_not_exists(hits, :initial) + :incr',
+        ExpressionAttributeValues={
+            ':initial': 0,
+            ':incr': 1
+        }
+    )
+    
     out = {}
     out["statusCode"] = 307
     out['body'] = ""
     
     try:
         out['headers'] = { 
-            'Location' : pypip_in_to_shields_io(event)
+            'Location' : pypip_in_to_shields_io(event),
+            'Access-Control-Allow-Origin': '*'
         }
     except KeyError:
         raise
